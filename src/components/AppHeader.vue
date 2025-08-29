@@ -19,26 +19,26 @@ import logo from '@/assets/icons/logo.svg'
       </div>
 
       <nav>
-        <ul class="flex gap-[32px] justify-between items-center">
+        <ul class="flex gap-[32px] justify-between items-center text-[#5c5c5c]">
 
-          <li class="flex items-center gap-[10px] cursor-pointer">
+          <li class="flex items-center gap-[10px] cursor-pointer hover:text-black transition duration-500">
             <img src="@/assets/icons/cart.svg" alt="cart">
-            <span class="text-[14px] text-[#5c5c5c] hover:text-black">1000 руб.</span>
+            <span class="text-[14px]">1000 руб.</span>
           </li>
 
-          <RouterLink to="/favorite">
-            <li class="flex items-center gap-[10px]">
+          <li class="hover:text-black transition duration-500">
+            <RouterLink to="/favorite" class="flex items-center gap-[10px]">
               <img src="@/assets/icons/heart.svg" alt="heart">
-              <span class="text-[14px] text-[#5c5c5c] hover:text-black">Favorite</span>
-            </li>
-          </RouterLink>
+              <span class="text-[14px]">Favorite</span>
+            </RouterLink>
+          </li>
 
-          <RouterLink to="/profile">
-            <li class="flex items-center gap-[10px]">
+          <li class="hover:text-black transition duration-500">
+            <RouterLink to="/profile" class="flex items-center gap-[10px]">
               <img src="@/assets/icons/profile.svg" alt="profile">
-              <span class="text-[14px] text-[#5c5c5c] hover:text-black">Profile</span>
-            </li>
-          </RouterLink>
+              <span class="text-[14px]">Profile</span>
+            </RouterLink>
+          </li>
         </ul>
       </nav>
     </div>
