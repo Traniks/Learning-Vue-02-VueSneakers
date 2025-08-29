@@ -1,15 +1,8 @@
-<template>
-  <div class="home">
-    <h1>This is a home page</h1>
-  </div>
-</template>
+<script setup>
+import SimpleSlider from '@/components/SimpleSlider.vue'
+</script>
 
-<style>
-@media (min-width: 1024px) {
-  .home {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
+<template>
+  <SimpleSlider />
+  <h1>This is a home page</h1>
+</template>
