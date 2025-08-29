@@ -4,11 +4,11 @@ import Header from './components/AppHeader.vue'
 </script>
 
 <template>
-  <main class="w-4/5 m-auto py-[85px]">
+  <div class="w-4/5 m-auto my-[85px] shadow-xl rounded-[20px] bg-white">
     <Header />
-    <RouterView />
-  </main>
+    <main>
+      <RouterView />
+    </main>
+  </div>
 
 </template>
-
-<style scoped></style>

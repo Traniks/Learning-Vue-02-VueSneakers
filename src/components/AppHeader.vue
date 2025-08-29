@@ -4,7 +4,7 @@ import logo from '@/assets/icons/logo.svg'
 </script>
 
 <template>
-  <header class="pl-[45px] pr-[60px] py-[45px] bg-white rounded-t-[20px] border-b-[1px] border-b-[#eaeaea]">
+  <header class="pl-[45px] pr-[60px] py-[45px] border-b-[1px] border-b-[#eaeaea]">
 
     <div class="flex justify-between items-center">
       <div class="flex justify-between items-center gap-[16px]">
