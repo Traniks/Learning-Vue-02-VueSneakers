@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import logo from '@/assets/icons/logo.svg'
+import { useAppStore } from '@/stores/app'
+
+const appStore = useAppStore()
 </script>
 
 <template>
@@ -21,7 +24,8 @@ import logo from '@/assets/icons/logo.svg'
       <nav>
         <ul class="flex gap-[32px] justify-between items-center text-[#5c5c5c]">
 
-          <li class="flex items-center gap-[10px] cursor-pointer hover:text-black transition duration-500">
+          <li class="flex items-center gap-[10px] cursor-pointer hover:text-black transition duration-500"
+            @click="appStore.openCart">
             <img src="@/assets/icons/cart.svg" alt="cart">
             <span class="text-[16px]">1000 руб.</span>
           </li>
