@@ -30,16 +30,19 @@ onMounted(() => {
       </div>
     </div>
 
-    <div v-if="productsStore.loading" class="text-center py-[40px]">
-      <p>Загрузка товаров...</p>
-    </div>
-
-    <div v-else-if="productsStore.error" class="text-center py-[40px] text-red-500">
-      <p>{{ productsStore.error }}</p>
-    </div>
-
     <div class="grid grid-cols-4 gap-[40px] py-[40px]">
-      <ProductCard v-for="product in productsStore.products" :key="product.id" :product="product" />
+      <template v-if="productsStore.loading">
+        <img v-for="index in 12" :key="`loading-${index}`" src="@/assets/icons/loading-card.svg" alt="loading card"
+          class="w-full" />
+      </template>
+
+      <template v-else-if="productsStore.error" class="col-span-4 text-center py-[40px] text-red-500">
+        <p>{{ productsStore.error }}</p>
+      </template>
+
+      <template v-else>
+        <ProductCard v-for="product in productsStore.products" :key="product.id" :product="product" />
+      </template>
     </div>
   </section>
 </template>
