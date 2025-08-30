@@ -1,7 +1,10 @@
 <script setup>
+
 import 'vue3-carousel/carousel.css'
 import { Carousel, Slide } from 'vue3-carousel'
 import { Navigation as CarouselNavigation } from 'vue3-carousel'
+
+import slide1 from '@/assets/img/slide-1.png'
 
 const carouselConfig = {
   itemsToShow: 1,
@@ -15,27 +18,27 @@ const slides = [
   {
     id: 1,
     title: 'Slide 1',
-    image: '/src/assets/img/slide-1.png'
+    image: slide1
   },
   {
     id: 2,
     title: 'Slide 2',
-    image: '/src/assets/img/slide-1.png'
+    image: slide1
   },
   {
     id: 3,
     title: 'Slide 3',
-    image: '/src/assets/img/slide-1.png'
+    image: slide1
   },
   {
     id: 4,
     title: 'Slide 4',
-    image: '/src/assets/img/slide-1.png'
+    image: slide1
   },
   {
     id: 5,
     title: 'Slide 5',
-    image: '/src/assets/img/slide-1.png'
+    image: slide1
   }
 ]
 </script>
