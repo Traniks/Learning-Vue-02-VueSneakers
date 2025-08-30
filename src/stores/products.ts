@@ -19,6 +19,7 @@ export const useProductsStore = defineStore('products', () => {
     loading.value = true
     try {
       const response = await axios.get('https://f43c0ac419f057cf.mokky.dev/items')
+      await new Promise((resolve) => setTimeout(resolve, 1000))
       products.value = response.data
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err)

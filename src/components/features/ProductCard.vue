@@ -7,7 +7,7 @@ const props = defineProps<{
 }>()
 
 const getImageUrl = (imageName: string): string => {
-  return new URL(`../assets/img/sneakers/${imageName}`, import.meta.url).href
+  return new URL(`../../assets/img/sneakers/${imageName}`, import.meta.url).href
 }
 
 const imageUrl = computed(() => {
