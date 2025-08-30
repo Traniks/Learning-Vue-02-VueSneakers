@@ -9,12 +9,12 @@ import logo from '@/assets/icons/logo.svg'
     <div class="flex justify-between items-center">
       <div class="flex justify-between items-center gap-[16px]">
         <RouterLink to="/">
-          <img class="" :src="logo" width="40" height="40" alt="Sneakers logo" />
+          <img class="" :src="logo" width="60" height="60" alt="Sneakers logo" />
         </RouterLink>
 
         <div>
-          <h1 class="font-bold text-[20px]">VUE SNEAKERS</h1>
-          <p class="text-[14px] text-[#9d9d9d]">Магазин лучших кроссовок</p>
+          <h1 class="font-bold text-[30px]">VUE SNEAKERS</h1>
+          <p class="text-[16px] text-[#9d9d9d]">Магазин лучших кроссовок</p>
         </div>
       </div>
 
@@ -23,20 +23,20 @@ import logo from '@/assets/icons/logo.svg'
 
           <li class="flex items-center gap-[10px] cursor-pointer hover:text-black transition duration-500">
             <img src="@/assets/icons/cart.svg" alt="cart">
-            <span class="text-[14px]">1000 руб.</span>
+            <span class="text-[16px]">1000 руб.</span>
           </li>
 
           <li class="hover:text-black transition duration-500">
             <RouterLink to="/favorite" class="flex items-center gap-[10px]">
               <img src="@/assets/icons/heart.svg" alt="heart">
-              <span class="text-[14px]">Favorite</span>
+              <span class="text-[16px]">Favorite</span>
             </RouterLink>
           </li>
 
           <li class="hover:text-black transition duration-500">
             <RouterLink to="/profile" class="flex items-center gap-[10px]">
               <img src="@/assets/icons/profile.svg" alt="profile">
-              <span class="text-[14px]">Profile</span>
+              <span class="text-[16px]">Profile</span>
             </RouterLink>
           </li>
         </ul>
