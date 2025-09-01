@@ -30,19 +30,8 @@ export const useProductsStore = defineStore('products', () => {
     searchQuery: '',
   })
 
-  const onChangeSelect = (event: Event) => {
-    const target = event.target as HTMLSelectElement
-    filters.sortBy = target.value
-  }
-
-  const onChangeSearchInput = (event: Event) => {
-    const target = event.target as HTMLInputElement
-    filters.searchQuery = target.value
-  }
-
   const fetchProducts = async () => {
     loading.value = true
-    error.value = null
     try {
       const params: ApiParams = {}
 
@@ -68,7 +57,6 @@ export const useProductsStore = defineStore('products', () => {
 
   // const fetchFavorites = async () => {
   //   loading.value = true
-  //   error.value = null
   //   try {
   //     const response = await axios.get('https://f43c0ac419f057cf.mokky.dev/favorite')
   //     await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -85,7 +73,6 @@ export const useProductsStore = defineStore('products', () => {
   //   if (!product) return
 
   //   loading.value = true
-  //   error.value = null
   //   try {
   //     await axios.post('https://f43c0ac419f057cf.mokky.dev/favorite', product)
   //     await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -103,7 +90,6 @@ export const useProductsStore = defineStore('products', () => {
 
   // const removeFromFavorites = async (id: number) => {
   //   loading.value = true
-  //   error.value = null
   //   try {
   //     // Находим товар в избранном на сервере
   //     const favoriteItem = favorites.value.find((item) => item.id === id)
@@ -138,9 +124,9 @@ export const useProductsStore = defineStore('products', () => {
   //   return (productId: number) => favorites.value.some((fav) => fav.id === productId)
   // })
 
-  const favoritesCount = computed(() => favorites.value.length)
+  // const favoritesCount = computed(() => favorites.value.length)
 
-  watch(filters, fetchProducts, { deep: true })
+  watch(filters, fetchProducts)
 
   return {
     products,
@@ -156,10 +142,6 @@ export const useProductsStore = defineStore('products', () => {
     // toggleFavorite,
 
     // isFavorite,
-    favoritesCount,
-
-    // Event handlers
-    onChangeSelect,
-    onChangeSearchInput,
+    // favoritesCount,
   }
 })
