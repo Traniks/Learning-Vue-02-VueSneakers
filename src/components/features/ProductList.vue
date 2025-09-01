@@ -38,9 +38,9 @@ onMounted(() => {
           class="w-full" />
       </template>
 
-      <template v-else-if="productsStore.error" class="col-span-4 text-center py-[40px] text-red-500">
+      <div v-else-if="productsStore.error" class="col-span-4 text-center py-[40px] text-red-500">
         <p>{{ productsStore.error }}</p>
-      </template>
+      </div>
 
       <template v-else>
         <ProductCard v-for="product in productsStore.products" :key="product.id" :product="product" />

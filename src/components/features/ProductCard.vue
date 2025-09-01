@@ -27,7 +27,7 @@ const imageUrl = computed(() => {
   <div
     class="relative pt-[20px] pb-[35px] px-[30px] border border-gray-300 rounded-[40px] hover:translate-y-[-20px] hover:shadow-lg transition duration-300">
     <div class="flex flex-col justify-between h-[100%]">
-      <img :src="false ? like : unlike" alt="like" width="32" height="32" class="absolute top-8 left-8 cursor-pointer"">
+      <img :src="false ? like : unlike" alt="like" width="32" height="32" class="absolute top-8 left-8 cursor-pointer">
       <img :src="imageUrl" alt="dislike">
 
       <h3 class="font-regular text-lg">{{ product.title }}</h3>
