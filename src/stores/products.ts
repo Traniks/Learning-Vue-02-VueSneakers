@@ -7,6 +7,7 @@ export interface Product {
   title: string
   price: number
   imageUrl: string
+  productId?: number
 }
 
 interface Filters {
@@ -55,76 +56,95 @@ export const useProductsStore = defineStore('products', () => {
     }
   }
 
-  // const fetchFavorites = async () => {
-  //   loading.value = true
-  //   try {
-  //     const response = await axios.get('https://f43c0ac419f057cf.mokky.dev/favorite')
-  //     await new Promise((resolve) => setTimeout(resolve, 1000))
-  //     favorites.value = response.data
-  //   } catch (err) {
-  //     error.value = err instanceof Error ? err.message : String(err)
-  //   } finally {
-  //     loading.value = false
-  //   }
-  // }
+  const fetchFavorites = async () => {
+    loading.value = true
+    try {
+      const response = await axios.get('https://f43c0ac419f057cf.mokky.dev/favorite')
+      await new Promise((resolve) => setTimeout(resolve, 1000))
 
-  // const addToFavorites = async (id: number) => {
-  //   const product = products.value.find((item) => item.id === id)
-  //   if (!product) return
+      const serverFavorites = response.data
+      favorites.value = serverFavorites.map((item: any) => ({
+        id: item.productId || item.id,
+        title: item.title,
+        price: item.price,
+        imageUrl: item.imageUrl,
+      }))
 
-  //   loading.value = true
-  //   try {
-  //     await axios.post('https://f43c0ac419f057cf.mokky.dev/favorite', product)
-  //     await new Promise((resolve) => setTimeout(resolve, 1000))
+      // Запоминаем количество для скелетонов
+      lastFavoritesCount.value = favorites.value.length
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : String(err)
+    } finally {
+      loading.value = false
+    }
+  }
 
-  //     // Добавляем товар в локальный массив избранного
-  //     if (!favorites.value.find((fav) => fav.id === product.id)) {
-  //       favorites.value.push(product)
-  //     }
-  //   } catch (err) {
-  //     error.value = err instanceof Error ? err.message : String(err)
-  //   } finally {
-  //     loading.value = false
-  //   }
-  // }
+  const addToFavorites = async (productId: number) => {
+    const product = products.value.find((item) => item.id === productId)
+    if (!product) return
 
-  // const removeFromFavorites = async (id: number) => {
-  //   loading.value = true
-  //   try {
-  //     // Находим товар в избранном на сервере
-  //     const favoriteItem = favorites.value.find((item) => item.id === id)
-  //     if (favoriteItem) {
-  //       await axios.delete(`https://f43c0ac419f057cf.mokky.dev/favorite/${favoriteItem.id}`)
-  //       await new Promise((resolve) => setTimeout(resolve, 1000))
+    loading.value = true
+    try {
+      const favoriteItem = {
+        ...product,
+        productId: productId,
+      }
 
-  //       // Удаляем из локального массива
-  //       const index = favorites.value.findIndex((item) => item.id === id)
-  //       if (index > -1) {
-  //         favorites.value.splice(index, 1)
-  //       }
-  //     }
-  //   } catch (err) {
-  //     error.value = err instanceof Error ? err.message : String(err)
-  //   } finally {
-  //     loading.value = false
-  //   }
-  // }
+      await axios.post('https://f43c0ac419f057cf.mokky.dev/favorite', favoriteItem)
+      await new Promise((resolve) => setTimeout(resolve, 1000))
 
-  // const toggleFavorite = async (id: number) => {
-  //   const isCurrentlyFavorite = favorites.value.some((fav) => fav.id === id)
+      if (!favorites.value.find((fav) => fav.id === productId)) {
+        favorites.value.push({ ...product })
+      }
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : String(err)
+    } finally {
+      loading.value = false
+    }
+  }
 
-  //   if (isCurrentlyFavorite) {
-  //     await removeFromFavorites(id)
-  //   } else {
-  //     await addToFavorites(id)
-  //   }
-  // }
+  const removeFromFavorites = async (productId: number) => {
+    loading.value = true
+    try {
+      const response = await axios.get('https://f43c0ac419f057cf.mokky.dev/favorite')
+      const serverFavorites = response.data
 
-  // const isFavorite = computed(() => {
-  //   return (productId: number) => favorites.value.some((fav) => fav.id === productId)
-  // })
+      const serverFavorite = serverFavorites.find(
+        (item: any) => item.productId === productId || item.id === productId,
+      )
 
-  // const favoritesCount = computed(() => favorites.value.length)
+      if (serverFavorite) {
+        await axios.delete(`https://f43c0ac419f057cf.mokky.dev/favorite/${serverFavorite.id}`)
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+      }
+
+      const index = favorites.value.findIndex((item) => item.id === productId)
+      if (index > -1) {
+        favorites.value.splice(index, 1)
+      }
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : String(err)
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const toggleFavorite = async (id: number) => {
+    const isCurrentlyFavorite = favorites.value.some((fav) => fav.id === id)
+
+    if (isCurrentlyFavorite) {
+      await removeFromFavorites(id)
+    } else {
+      await addToFavorites(id)
+    }
+  }
+
+  const isFavorite = computed(() => {
+    return (productId: number) => {
+      const result = favorites.value.some((fav) => fav.id === productId)
+      return result
+    }
+  })
 
   watch(filters, fetchProducts)
 
@@ -136,12 +156,11 @@ export const useProductsStore = defineStore('products', () => {
     filters,
 
     fetchProducts,
-    // fetchFavorites,
-    // addToFavorites,
-    // removeFromFavorites,
-    // toggleFavorite,
+    fetchFavorites,
+    addToFavorites,
+    removeFromFavorites,
+    toggleFavorite,
 
-    // isFavorite,
-    // favoritesCount,
+    isFavorite,
   }
 })

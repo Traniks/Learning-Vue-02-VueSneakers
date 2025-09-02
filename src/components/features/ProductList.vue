@@ -7,7 +7,7 @@ const productsStore = useProductsStore()
 
 onMounted(() => {
   productsStore.fetchProducts();
-  // productsStore.fetchFavorites();
+  productsStore.fetchFavorites()
 });
 </script>
 

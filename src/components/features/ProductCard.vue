@@ -16,7 +16,7 @@ const getImageUrl = (imageName: string): string => {
   return new URL(`../../assets/img/sneakers/${imageName}`, import.meta.url).href
 }
 
-const imageUrl = computed(() => {
+const sneakersImageUrl = computed(() => {
   const imageName = props.product.imageUrl?.split('/').pop() || 'sneakers-1.jpg'
   return getImageUrl(imageName)
 })
@@ -27,8 +27,9 @@ const imageUrl = computed(() => {
   <div
     class="relative pt-[20px] pb-[35px] px-[30px] border border-gray-300 rounded-[40px] hover:translate-y-[-20px] hover:shadow-lg transition duration-300">
     <div class="flex flex-col justify-between h-[100%]">
-      <img :src="false ? like : unlike" alt="like" width="32" height="32" class="absolute top-8 left-8 cursor-pointer">
-      <img :src="imageUrl" alt="dislike">
+      <img :src="productsStore.isFavorite(product.id) ? like : unlike" alt="like" width="32" height="32"
+        class="absolute top-8 left-8 cursor-pointer" @click="productsStore.toggleFavorite(product.id)">
+      <img :src="sneakersImageUrl" alt="sneaker">
 
       <h3 class="font-regular text-lg">{{ product.title }}</h3>
 
