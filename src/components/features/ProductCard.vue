@@ -2,15 +2,20 @@
 import { computed } from 'vue'
 import type { Product } from '@/stores/products'
 import { useProductsStore } from '@/stores/products'
+import { useCartStore } from '@/stores/сartStore'
 
 import like from '@/assets/icons/like-2.svg'
 import unlike from '@/assets/icons/like-1.svg'
+
+import add from '@/assets/icons/plus.svg'
+import added from '@/assets/icons/checked.svg'
 
 const props = defineProps<{
   product: Product
 }>()
 
 const productsStore = useProductsStore()
+const cartStore = useCartStore()
 
 const getImageUrl = (imageName: string): string => {
   return new URL(`../../assets/img/sneakers/${imageName}`, import.meta.url).href
@@ -38,7 +43,8 @@ const sneakersImageUrl = computed(() => {
           <p class="text-gray-400 uppercase text-sm font-medium">Цена:</p>
           <span class="text-lg font-bold">{{ product.price }} руб.</span>
         </div>
-        <img src="@/assets/icons/plus.svg" alt="plus" width="32" height="32" class="cursor-pointer">
+        <img :src="cartStore.isAdded(product.id) ? added : add" alt="plus" width="32" height="32" class="cursor-pointer"
+          @click="cartStore.toggleCart(product.id)">
       </div>
     </div>
   </div>

@@ -47,7 +47,6 @@ export const useProductsStore = defineStore('products', () => {
       const response = await axios.get('https://f43c0ac419f057cf.mokky.dev/items', {
         params,
       })
-      await new Promise((resolve) => setTimeout(resolve, 1000))
       products.value = response.data
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err)
@@ -60,7 +59,6 @@ export const useProductsStore = defineStore('products', () => {
     loading.value = true
     try {
       const response = await axios.get('https://f43c0ac419f057cf.mokky.dev/favorite')
-      await new Promise((resolve) => setTimeout(resolve, 1000))
 
       const serverFavorites = response.data
       favorites.value = serverFavorites.map((item: any) => ({
@@ -69,9 +67,6 @@ export const useProductsStore = defineStore('products', () => {
         price: item.price,
         imageUrl: item.imageUrl,
       }))
-
-      // Запоминаем количество для скелетонов
-      lastFavoritesCount.value = favorites.value.length
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err)
     } finally {
@@ -91,7 +86,6 @@ export const useProductsStore = defineStore('products', () => {
       }
 
       await axios.post('https://f43c0ac419f057cf.mokky.dev/favorite', favoriteItem)
-      await new Promise((resolve) => setTimeout(resolve, 1000))
 
       if (!favorites.value.find((fav) => fav.id === productId)) {
         favorites.value.push({ ...product })
@@ -115,7 +109,6 @@ export const useProductsStore = defineStore('products', () => {
 
       if (serverFavorite) {
         await axios.delete(`https://f43c0ac419f057cf.mokky.dev/favorite/${serverFavorite.id}`)
-        await new Promise((resolve) => setTimeout(resolve, 1000))
       }
 
       const index = favorites.value.findIndex((item) => item.id === productId)
