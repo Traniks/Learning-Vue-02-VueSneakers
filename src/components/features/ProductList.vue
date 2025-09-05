@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import { useProductsStore } from '@/stores/products';
 import ProductCard from './ProductCard.vue';
 
@@ -8,6 +8,10 @@ const productsStore = useProductsStore()
 onMounted(() => {
   productsStore.fetchProducts();
   productsStore.fetchFavorites()
+});
+
+onUnmounted(() => {
+  productsStore.clearSearchTimeout();
 });
 </script>
 

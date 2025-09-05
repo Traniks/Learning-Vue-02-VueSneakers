@@ -139,7 +139,31 @@ export const useProductsStore = defineStore('products', () => {
     }
   })
 
-  watch(filters, fetchProducts)
+  let searchTimeout: number | null = null
+  watch(
+    () => filters.sortBy,
+    () => {
+      fetchProducts()
+    },
+  )
+  watch(
+    () => filters.searchQuery,
+    () => {
+      if (searchTimeout) {
+        clearTimeout(searchTimeout)
+      }
+
+      searchTimeout = setTimeout(() => {
+        fetchProducts()
+      }, 500)
+    },
+  )
+  const clearSearchTimeout = () => {
+    if (searchTimeout) {
+      clearTimeout(searchTimeout)
+      searchTimeout = null
+    }
+  }
 
   return {
     products,
@@ -153,6 +177,7 @@ export const useProductsStore = defineStore('products', () => {
     addToFavorites,
     removeFromFavorites,
     toggleFavorite,
+    clearSearchTimeout,
 
     isFavorite,
   }
