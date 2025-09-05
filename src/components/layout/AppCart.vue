@@ -62,7 +62,7 @@ const cartStore = useCartStore()
               <b class="text-[16px] font-bold">{{ cartStore.totalTax }} ₽</b>
             </div>
 
-            <BaseButton class="w-full mt-[24px]">Оформить заказ
+            <BaseButton class="w-full mt-[24px]" @click="cartStore.addToOrder">Оформить заказ
               <template #icon>
                 <img src="@/assets/icons/arrow-next.svg" alt="arrow"
                   class="absolute translate-y-[-50%] top-[50%] right-[60px]" />
@@ -76,7 +76,9 @@ const cartStore = useCartStore()
         <div class="py-[30px] flex flex-col items-center h-full justify-center">
           <img :src="OrderImg" alt="order success" width="83">
           <h3 class="success mt-[30px] font-semibold text-[22px] text-center">Заказ оформлен!</h3>
-          <p class="mt-[10px] text-[16px] opacity-40 text-center">Ваш заказ #18 скоро будет передан курьерской
+          <p class="mt-[10px] text-[16px] opacity-40 text-center">Ваш заказ #{{ cartStore.currentOrderId }} скоро будет
+            передан
+            курьерской
             доставке</p>
           <BaseButton class="w-full mt-[40px]" @click="cartStore.closeCart">Вернуться назад
             <template #icon>
