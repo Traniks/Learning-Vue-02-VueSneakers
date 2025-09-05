@@ -14,7 +14,7 @@ const cartStore = useCartStore()
     <div class="bg-black opacity-50 h-full w-full fixed top-0 left-0 right-0 flex items-end z-5"
       @click="cartStore.closeCart"></div>
 
-    <div class="fixed top-0 right-0 z-6 bg-white h-full w-[385px] pt-[32px] pb-[30px] px-[30px]">
+    <div class="fixed top-0 right-0 z-6 bg-white h-full w-[385px] pt-[32px] pb-[30px] px-[30px]" v-auto-animate>
       <div class="flex items-center gap-[15px]">
         <svg class="rotate-180 stone-950 cursor-pointer opacity-50 hover:opacity-100 transition duration-300"
           @click="cartStore.closeCart" width="16" height="14" viewBox="0 0 16 14" fill="none"
@@ -45,7 +45,7 @@ const cartStore = useCartStore()
       <template v-if="cartStore.cartState === 'filled'">
         <div class="py-[30px] flex flex-col h-full justify-between">
 
-          <div class="flex flex-col items-center gap-[20px]">
+          <div class="flex flex-col items-center gap-[20px]" v-auto-animate>
             <CartItem v-for="item in cartStore.cart" :key="item.id" :product="item" />
           </div>
 

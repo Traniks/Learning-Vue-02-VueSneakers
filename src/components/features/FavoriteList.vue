@@ -7,6 +7,7 @@ import BaseButton from '@/components/ui/BaseButton.vue';
 const productsStore = useProductsStore()
 
 onMounted(() => {
+  productsStore.fetchProducts();
   productsStore.fetchFavorites();
 });
 
@@ -22,7 +23,8 @@ onMounted(() => {
     </div>
 
     <div
-      :class="(productsStore.loading || productsStore.favorites.length) ? 'grid grid-cols-4 gap-[40px] py-[40px]' : 'py-[40px]'">
+      :class="(productsStore.loading || productsStore.favorites.length) ? 'grid grid-cols-4 gap-[40px] py-[40px]' : 'py-[40px]'"
+      v-auto-animate>
       <template v-if="productsStore.loading">
         <img v-for="index in 4" :key="`loading-${index}`" src="@/assets/icons/loading-card.svg" alt="loading card"
           class="w-full" />

@@ -32,7 +32,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="grid grid-cols-4 gap-[40px] py-[40px]">
+    <div class="grid grid-cols-4 gap-[40px] py-[40px]" v-auto-animate>
       <template v-if="productsStore.loading">
         <img v-for="index in 12" :key="`loading-${index}`" src="@/assets/icons/loading-card.svg" alt="loading card"
           class="w-full" />
