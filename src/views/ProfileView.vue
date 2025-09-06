@@ -1,15 +1,7 @@
-<template>
-  <div class="profile">
-    <h1>This is a profile page</h1>
-  </div>
-</template>
+<script setup lang="ts">
+import OrderList from '@/components/features/OrderList.vue'
+</script>
 
-<style>
-@media (min-width: 1024px) {
-  .profile {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
+<template>
+  <OrderList />
+</template>

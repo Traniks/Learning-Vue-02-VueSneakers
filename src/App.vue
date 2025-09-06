@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import Header from './components/AppHeader.vue'
+import Header from './components/layout/AppHeader.vue'
+import Cart from './components/layout/AppCart.vue'
 </script>
 
 <template>
-  <main class="w-4/5 m-auto py-[85px]">
+  <div class="w-4/5 m-auto my-[85px] shadow-xl rounded-[20px] bg-white">
     <Header />
-    <RouterView />
-  </main>
+    <Cart />
+    <main>
+      <RouterView />
+    </main>
+  </div>
 
 </template>
-
-<style scoped></style>
