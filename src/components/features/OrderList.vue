@@ -75,23 +75,19 @@ onMounted(() => {
 
     <div v-auto-animate>
       <template v-if="cartStore.loading">
-        <div class="pt-[40px]">
-          <h3 class="text-[24px] font-bold">Заказ №# от ##.##.##</h3>
-          <div class="grid grid-cols-4 gap-[40px] py-[40px]">
-            <img v-for="index in 4" :key="`loading-${index}`" src="@/assets/icons/loading-card.svg" alt="loading card"
-              class="w-full" />
-          </div>
+        <div class="py-[200px] flex justify-center">
+          <img src="@/assets/icons/loader.svg" alt="loader" width="100" height="100">
         </div>
       </template>
 
       <template v-else-if="cartStore.error">
-        <div class="flex flex-col items-center justify-center py-[40px] text-red-500">
+        <div class="py-[200px] flex justify-center text-red-500">
           <p>{{ cartStore.error }}</p>
         </div>
       </template>
 
       <template v-else-if="!cartStore.orders.length">
-        <div class="flex flex-col items-center justify-center">
+        <div class="flex flex-col items-center justify-center py-[200px]">
           <img src="@/assets/img/emoji-2.png" alt="emoji" width="70" height="70">
           <h3 class="mt-[30px] text-[24px] font-semibold">У вас нет заказов</h3>
           <p class="opacity-40">Оформите хотя бы один заказ.</p>
@@ -107,33 +103,32 @@ onMounted(() => {
       </template>
 
       <template v-else>
-        <div>
-          <div v-for="order in cartStore.orders" :key="order.id"
-            class="pt-[20px] pb-[20px] border-b-[1px] border-b-[#F3F3F3] relative">
-            <img src="@/assets/icons/close.svg" alt="order icon" class="absolute top-[20px] right-[20px] cursor-pointer"
-              @click="cartStore.removeFromOrder(order.id)" />
+        <div v-for="order in cartStore.orders" :key="order.id"
+          class="pt-[20px] pb-[20px] border-b-[1px] border-b-[#F3F3F3] relative">
+          <img src="@/assets/icons/close.svg" alt="order icon" class="absolute top-[20px] right-[20px] cursor-pointer"
+            @click="cartStore.removeFromOrder(order.id)" />
 
-            <div class="flex items-center gap-[20px]">
-              <h3 class="text-[24px] font-bold">Заказ №{{ order.id }} от {{ formatOrderDate(order.orderDate) }}</h3>
+          <div class="flex items-center gap-[20px]">
+            <h3 class="text-[24px] font-bold">Заказ <span class="underline decoration-[#87c20a]">№{{ order.id }}</span>
+              от <span class="underline decoration-[#87c20a]">{{ formatOrderDate(order.orderDate) }}</span></h3>
 
-              <div class="flex items-center gap-2">
-                <span>{{ getStatusInfo(order.status).icon }}</span>
-                <span
-                  :class="`px-3 py-1 rounded-full text-sm font-medium text-[16px] ${getStatusInfo(order.status).color}`">
-                  {{ getStatusInfo(order.status).text }}
-                </span>
-              </div>
+            <div class="flex items-center gap-2">
+              <span>{{ getStatusInfo(order.status).icon }}</span>
+              <span
+                :class="`px-3 py-1 rounded-full text-sm font-medium text-[16px] ${getStatusInfo(order.status).color}`">
+                {{ getStatusInfo(order.status).text }}
+              </span>
             </div>
+          </div>
 
-            <div class="grid grid-cols-4 gap-[40px] py-[40px]">
-              <ProductCard v-for="product in order.items" :key="product.id" :product="product" :show-cart="false"
-                :show-favorite="false" />
-            </div>
+          <div class="grid grid-cols-4 gap-[40px] py-[40px]">
+            <ProductCard v-for="product in order.items" :key="product.id" :product="product" :show-cart="false"
+              :show-favorite="false" />
+          </div>
 
-            <div class="flex justify-end items-center gap-[20px]">
-              <span class="text-lg opacity-50">Итого c комиссией 5%:</span>
-              <span class="text-lg font-bold">{{ order.totalAmount }} руб.</span>
-            </div>
+          <div class="flex justify-end items-center gap-[20px]">
+            <span class="text-lg opacity-50">Итого c комиссией 5%:</span>
+            <span class="text-lg font-bold">{{ order.totalAmount }} руб.</span>
           </div>
         </div>
       </template>

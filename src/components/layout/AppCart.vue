@@ -76,7 +76,8 @@ const cartStore = useCartStore()
         <div class="py-[30px] flex flex-col items-center h-full justify-center">
           <img :src="OrderImg" alt="order success" width="83">
           <h3 class="success mt-[30px] font-semibold text-[22px] text-center">Заказ оформлен!</h3>
-          <p class="mt-[10px] text-[16px] opacity-40 text-center">Ваш заказ #{{ cartStore.currentOrderId }} скоро будет
+          <p class="mt-[10px] text-[16px] opacity-40 text-center">Ваш заказ <span class="text-[#87c20a]">#{{
+            cartStore.currentOrderId }}</span> скоро будет
             передан
             курьерской
             доставке</p>

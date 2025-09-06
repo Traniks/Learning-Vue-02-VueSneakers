@@ -22,22 +22,21 @@ onMounted(() => {
       <h2 class="text-[32px] font-bold">Мои закладки</h2>
     </div>
 
-    <div
-      :class="(productsStore.loading || productsStore.favorites.length) ? 'grid grid-cols-4 gap-[40px] py-[40px]' : 'py-[40px]'"
-      v-auto-animate>
+    <div v-auto-animate>
       <template v-if="productsStore.loading">
-        <img v-for="index in 4" :key="`loading-${index}`" src="@/assets/icons/loading-card.svg" alt="loading card"
-          class="w-full" />
+        <div class="py-[200px] flex justify-center">
+          <img src="@/assets/icons/loader.svg" alt="loader" width="100" height="100">
+        </div>
       </template>
 
       <template v-else-if="productsStore.error">
-        <div class="col-span-4 text-center py-[40px] text-red-500">
+        <div class="py-[200px] flex justify-center text-red-500">
           <p>{{ productsStore.error }}</p>
         </div>
       </template>
 
       <template v-else-if="!productsStore.favorites.length">
-        <div class="flex flex-col items-center justify-center">
+        <div class="flex flex-col items-center justify-center py-[200px]">
           <img src="@/assets/img/emoji-1.png" alt="emoji" width="70" height="70">
           <h3 class="mt-[30px] text-[24px] font-semibold">Закладок нет :(</h3>
           <p class="opacity-40">Вы ничего не добавляли в закладки</p>
@@ -53,7 +52,9 @@ onMounted(() => {
       </template>
 
       <template v-else>
-        <ProductCard v-for="favorite in productsStore.favorites" :key="favorite.id" :product="favorite" />
+        <div class="grid grid-cols-4 gap-[40px] py-[40px]">
+          <ProductCard v-for="favorite in productsStore.favorites" :key="favorite.id" :product="favorite" />
+        </div>
       </template>
     </div>
   </section>
